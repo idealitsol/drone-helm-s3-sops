@@ -1,7 +1,7 @@
 image: docker:latest
 
-services:
-  - docker:dind
+# services:
+#   - docker:dind
 
 stages:
   - build
@@ -10,8 +10,7 @@ variables:
   IMAGE_TAG: idealitsol/drone-helm-s3-sops:$CI_COMMIT_TAG
 
 before_script:
-  - docker login docker.io
-  # - docker login ${CI_REGISTRY} -u "${CI_REGISTRY_USERNAME}" -p ${CI_REGISTRY_PASSWORD}
+  - docker login  -u "${CI_REGISTRY_USERNAME}" -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
 
 build:
   stage: build
