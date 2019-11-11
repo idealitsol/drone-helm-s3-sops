@@ -27,8 +27,12 @@ RUN \
 RUN \
     curl -Lo /usr/local/bin/kubectl \
     https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
-    chmod +x /usr/local/bin/kubectl
+    chmod +x /usr/local/bin/kubectl && \
+    apk del --purge deps
 
+ENV HELM_HOME /tmp/helm
+RUN mkdir -p /tmp/helm
+RUN helm init --client-only
 RUN helm plugin install https://github.com/futuresimple/helm-secrets
 RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
 
