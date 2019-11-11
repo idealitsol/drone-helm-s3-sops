@@ -27,8 +27,7 @@ RUN \
 RUN \
     curl -Lo /usr/local/bin/kubectl \
     https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
-    chmod +x /usr/local/bin/kubectl && \
-    apk del --purge deps
+    chmod +x /usr/local/bin/kubectl
 
 ENV HELM_HOME /tmp/helm
 RUN mkdir -p /tmp/helm
