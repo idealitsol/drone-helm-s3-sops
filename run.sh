@@ -28,6 +28,7 @@ kubectl config use-context default
 
 # Run kubectl command
 if [[ ! -z ${PLUGIN_KUBECTL} ]]; then
+  echo ${KUBERNETES_SERVER}
   kubectl config view
   kubectl ${PLUGIN_KUBECTL}
 fi
