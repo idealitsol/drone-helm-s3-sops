@@ -1,10 +1,6 @@
-kind: pipeline
-name: default
-
-steps:
-  - name: docker
+pipeline:
+  docker:
     image: plugins/docker
-    settings:
-      repo: idealitsol/drone-helm-s3-sops
-      tags: latest
-      secrets: [docker_username, docker_password]
+    repo: idealitsol/drone-helm-s3-sops
+    tags: latest
+    secrets: [docker_username, docker_password]
