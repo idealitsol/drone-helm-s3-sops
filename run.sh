@@ -24,6 +24,9 @@ fi
 kubectl config set-context default --cluster=default --user=default
 kubectl config use-context default
 
+kubectl version
+kubectl config view
+
 # Run helm command
 if [[ ! -z ${PLUGIN_HELM} ]]; then
   helm ${PLUGIN_HELM}
