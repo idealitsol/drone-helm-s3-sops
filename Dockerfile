@@ -3,10 +3,19 @@ FROM alpine
 ENV HELM_VERSION="v2.8.2"
 ENV KUBECTL_VERSION="v1.9.3"
 
-RUN \
+RUN apk add \
+    python \
+    py-pip \
+    curl \
+    bash \
+    git \
+    jq \
+    zip \
+    && \
     apk add --update ca-certificates && \
-    apk add -t deps curl && \
-    apk add bash
+    pip install --upgrade awscli && \
+    apk -v --purge del py-pip && \
+    rm /var/cache/apk/*
 
 RUN \
     curl -Lo /tmp/helm.tar.gz \
