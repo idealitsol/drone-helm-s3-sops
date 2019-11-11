@@ -33,7 +33,7 @@ ENV HELM_HOME /tmp/helm
 RUN mkdir -p /tmp/helm
 RUN helm init --client-only
 RUN helm plugin install https://github.com/futuresimple/helm-secrets --version master
-RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
+RUN helm plugin install https://github.com/hypnoglow/helm-s3.git --version master
 
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
