@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo ${KUBERNETES_SERVER}
+echo ${KUBERNETES_TOKEN}
+echo $KUBERNETES_SERVER
+echo $KUBERNETES_TOKEN
+
 if [[ ! -z ${KUBERNETES_TOKEN} ]]; then
   KUBERNETES_TOKEN=${KUBERNETES_TOKEN}
 fi
@@ -24,8 +29,9 @@ fi
 kubectl config set-context default --cluster=default --user=default
 kubectl config use-context default
 
+kubectl config view
+
 # Run helm command
 if [[ ! -z ${PLUGIN_HELM} ]]; then
-  kubectl config view
   helm ${PLUGIN_HELM}
 fi
