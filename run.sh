@@ -34,6 +34,5 @@ fi
 
 # Run helm command
 if [[ ! -z ${PLUGIN_HELM} ]]; then
-  kubectl config view
-  helm ${PLUGIN_HELM}
+  helm version
 fi
