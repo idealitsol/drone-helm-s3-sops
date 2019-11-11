@@ -28,10 +28,12 @@ kubectl config use-context default
 
 # Run kubectl command
 if [[ ! -z ${PLUGIN_KUBECTL} ]]; then
+  kubectl config view
   kubectl ${PLUGIN_KUBECTL}
 fi
 
 # Run helm command
 if [[ ! -z ${PLUGIN_HELM} ]]; then
+  kubectl config view
   helm ${PLUGIN_HELM}
 fi
