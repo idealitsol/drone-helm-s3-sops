@@ -24,4 +24,4 @@ RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
-CMD ["/run.sh"]
+ENTRYPOINT ["run.sh"]
