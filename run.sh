@@ -35,16 +35,4 @@ fi
 kubectl config set-context default --cluster=default --user=${PLUGIN_KUBERNETES_USER}
 kubectl config use-context default
 
-# Run kubectl command
-# if [[ ! -z ${PLUGIN_KUBECTL} ]]; then
-#   echo ${KUBERNETES_SERVER}
-#   kubectl config view
-#   kubectl ${PLUGIN_KUBECTL}
-# fi
-
-# Run helm command
-# if [[ ! -z ${PLUGIN_HELM} ]]; then
-#   helm version
-# fi
-
 kubectl $@
