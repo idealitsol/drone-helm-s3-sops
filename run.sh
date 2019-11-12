@@ -1,39 +1,50 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
-if [[ ! -z $KUBERNETES_TOKEN ]]; then
-  KUBERNETES_TOKEN=$KUBERNETES_TOKEN
+if [ -z ${PLUGIN_NAMESPACE} ]; then
+  PLUGIN_NAMESPACE="default"
 fi
 
-if [[ ! -z $KUBERNETES_SERVER ]]; then
-  KUBERNETES_SERVER=$KUBERNETES_SERVER
+if [ -z ${PLUGIN_KUBERNETES_USER} ]; then
+  PLUGIN_KUBERNETES_USER="default"
 fi
 
-if [[ ! -z $KUBERNETES_CERT ]]; then
-  KUBERNETES_CERT=$KUBERNETES_CERT
+if [ ! -z ${PLUGIN_KUBERNETES_TOKEN} ]; then
+  KUBERNETES_TOKEN=${PLUGIN_KUBERNETES_TOKEN}
 fi
 
-kubectl config set-credentials default --token=$KUBERNETES_TOKEN
-if [[ -z $KUBERNETES_CERT ]]; then
-  echo $KUBERNETES_CERT | base64 -d >ca.crt
-  kubectl config set-cluster default --server=$KUBERNETES_SERVER --certificate-authority=ca.crt
+if [ ! -z ${PLUGIN_KUBERNETES_SERVER} ]; then
+  KUBERNETES_SERVER=${PLUGIN_KUBERNETES_SERVER}
+fi
+
+if [ ! -z ${PLUGIN_KUBERNETES_CERT} ]; then
+  KUBERNETES_CERT=${PLUGIN_KUBERNETES_CERT}
+fi
+
+kubectl config set-credentials default --token=${KUBERNETES_TOKEN}
+
+if [ ! -z ${KUBERNETES_CERT} ]; then
+  echo ${KUBERNETES_CERT} | base64 -d > ca.crt
+  kubectl config set-cluster default --server=${KUBERNETES_SERVER} --certificate-authority=ca.crt
 else
   echo "WARNING: Using insecure connection to cluster"
-  kubectl config set-cluster default --server=$KUBERNETES_SERVER --insecure-skip-tls-verify=true
+  kubectl config set-cluster default --server=${KUBERNETES_SERVER} --insecure-skip-tls-verify=true
 fi
 
-kubectl config set-context default --cluster=default --user=default
+kubectl config set-context default --cluster=default --user=${PLUGIN_KUBERNETES_USER}
 kubectl config use-context default
 
 # Run kubectl command
-if [[ ! -z $PLUGIN_KUBECTL ]]; then
-  echo $KUBERNETES_SERVER
-  kubectl config view
-  kubectl $PLUGIN_KUBECTL
-fi
+# if [[ ! -z ${PLUGIN_KUBECTL} ]]; then
+#   echo ${KUBERNETES_SERVER}
+#   kubectl config view
+#   kubectl ${PLUGIN_KUBECTL}
+# fi
 
 # Run helm command
-if [[ ! -z $PLUGIN_HELM ]]; then
-  helm version
-fi
+# if [[ ! -z ${PLUGIN_HELM} ]]; then
+#   helm version
+# fi
+
+kubectl $@
