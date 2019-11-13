@@ -11,3 +11,10 @@ steps:
         from_secret: docker_username
       password:
         from_secret: docker_password
+    commands:
+      - docker build \
+        --label org.label-schema.build-date=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
+        --label org.label-schema.vcs-ref=$(git rev-parse --short HEAD) \
+        --file Dockerfile --tag idealitsol/drone-helm-s3-sops .
+
+      - docker push idealitsol/drone-helm-s3-sops:latest

@@ -21,6 +21,8 @@ RUN helm init --client-only
 RUN helm plugin install https://github.com/futuresimple/helm-secrets
 RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
 
+ENV PATH="/opt/idealitsol/bin:$PATH"
+
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
