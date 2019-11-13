@@ -7,12 +7,7 @@ steps:
     settings:
       repo: idealitsol/drone-helm-s3-sops
       auto_tag: true
-      dockerfile: Dockerfile
       username:
         from_secret: docker_username
       password:
         from_secret: docker_password
-    when:
-    event:
-      - push
-      - tag
