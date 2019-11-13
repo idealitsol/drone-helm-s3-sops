@@ -6,8 +6,7 @@ steps:
     image: plugins/docker
     settings:
       repo: idealitsol/drone-helm-s3-sops
-      auto_tag: true
-      force_tag: true
+      tags: latest
       username:
         from_secret: docker_username
       password:
