@@ -28,4 +28,5 @@ RUN chmod +x /run.sh
 
 ENTRYPOINT ["/run.sh"]
 
+
 CMD ["--help"]
