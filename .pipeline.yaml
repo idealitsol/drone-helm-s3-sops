@@ -3,12 +3,14 @@ name: default
 
 steps:
   - name: docker
-    pull: always
-    image: plugins/docker:18
+    image: plugins/docker
     settings:
-      repo: idealitsol/drone-helm-s3-sops
-      auto_tag: true
-      auto_tag_suffix: linux-amd64
+      repo: ${DRONE_REPO,,}
+      tags:
+        - ${DRONE_SOURCE_BRANCH/\//-}
+        - ${DRONE_SOURCE_BRANCH/\//-}-${DRONE_COMMIT_SHA:0:8}
+      cache_from:
+        - ${DRONE_REPO,,}:${DRONE_SOURCE_BRANCH/\//-}
       username:
         from_secret: docker_username
       password:
@@ -16,4 +18,4 @@ steps:
     when:
       event:
         exclude:
-          - pull_request
+          - tag
